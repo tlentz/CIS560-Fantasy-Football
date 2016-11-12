@@ -1,0 +1,28 @@
+.tile{
+	width: 250px;
+	height: 100px;
+	background-color: #0275d8;
+	padding: 10px;
+	display: inline;
+	border: solid 3 black;
+	margin: 10px;
+	border-radius: 5px;
+	box-shadow: 2px 2px 5px grey;
+	text-align: center;
+	position: relative;
+	color: #f2f2f2;
+}
+
+.tile:hover{
+	filter: brightness(120%);
+	cursor: pointer;
+}
+
+a:hover{
+	text-decoration: none;
+}
+
+.whiteText{
+	color: white;
+	font-size: 20px;
+}

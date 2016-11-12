@@ -1,5 +1,6 @@
 <?php
 session_start();
+include('commonFunctions.php');
 $mysqli = new mysqli("mysql.cis.ksu.edu", "markloev", "pcEkhG5B5kg8XExJ%RD", "markloev");
 ?>
 <html lang="en">
@@ -12,6 +13,9 @@ $mysqli = new mysqli("mysql.cis.ksu.edu", "markloev", "pcEkhG5B5kg8XExJ%RD", "ma
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-1.12.3.js"></script>
+    <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
   </head>
   <body>
     <div class="container">
@@ -25,7 +29,7 @@ $mysqli = new mysqli("mysql.cis.ksu.edu", "markloev", "pcEkhG5B5kg8XExJ%RD", "ma
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Fantasy Football</a>
+            <a class="navbar-brand" href="index.php">Fantasy Football</a>
           </div>
 
           <!-- Collect the nav links, forms, and other content for toggling -->

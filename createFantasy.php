@@ -1,34 +1,27 @@
 <?php
 include('header.php');
 
-$query = "SELECT a.*, b.* FROM Player a INNER JOIN PlayerStat b ON b.playerStatID = a.playerID INNER JOIN Position c ON c.positionID = b.positionID";
+//$query = "SELECT a.*, b.* FROM Player a INNER JOIN PlayerStat b ON b.playerStatID = a.playerID INNER JOIN Position c ON c.positionID = b.positionID";
+$query = "SELECT * FROM Users";
 $result = $mysqli->query($query);
 $array = r2a($result);
 
-foreach($array as $a){
-
-}
 ?>
 
-<table id="table" class="display" cellspacing="0" width="100%">
+<table id="table" class="display table-striped table-inverse table-hover" cellspacing="0" width="100%">
     <thead>
         <tr>
             <th>Name</th>
             <th>Position</th>
             <th>Office</th>
-            <th>Start date</th>
-            <th>Salary</th>
         </tr>
     </thead>
     <tbody>
         <?php foreach($array as $a){ ?>
         <tr>
-            <th><?= $a[0]['fName'].$a[0]['lName'] ?></th>
-            <th><?= $a[0]['fName'] ?></th>
-            <th><?= $a[0]['fName'] ?></th>
-            <th><?= $a[0]['fName'] ?></th>
-            <th><?= $a[0]['fName'] ?></th>
-            <th><?= $a[0]['fName'] ?></th>
+            <th><?= $a['fName'].$a['lName'] ?></th>
+            <th><?= $a['password'] ?></th>
+            <th><?= $a['username'] ?></th>
         </tr>
         <?php } ?>
     </tbody>

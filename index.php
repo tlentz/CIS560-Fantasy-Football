@@ -33,19 +33,12 @@ foreach($positions as $p) {
 }
 $file = fopen("scrape_data/players.txt", "r") or die("Unable to open file!");
 echo "<pre>"; print_r($new_teams); echo "</pre>";
-while(! feof($file)) {
+echo $new_teams['ARI'];
+while(!feof($file) && fgets($file) != "") {
   $line = fgets($file);
   $parts = explode(" -- ",$line);
-  echo $parts[2];
-  echo $new_teams[$parts[2]];
-  echo $new_teams['ARI'];
-  $abbr = rtrim($parts[2]," ");
-  echo $abbr;
-  echo $new_teams[$abbr];
-  echo "<pre>"; print_r($parts); echo "</pre>";
-  $query = "INSERT INTO Player (name,teamID,positionID) VALUES ('".$parts[1]."','".$new_teams[$parts[2]]."','".$pos[$parts[0]]."')";
-  echo $query;
-  die;
+  //$query = "INSERT INTO Player (name,teamID,positionID) VALUES ('".$parts[1]."','".$new_teams[trim($parts[2])]."','".$pos[$parts[0]]."')";
+  //$mysqli->query($query);
 }
 fclose($file);
 include('footer.php');

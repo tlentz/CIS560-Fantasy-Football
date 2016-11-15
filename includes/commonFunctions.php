@@ -8,4 +8,11 @@ function r2a($r)
     }
     return $a;
 }
+
+function checkLogin() {
+  if(isset($_SESSION['user'])) {
+    return true;
+  }
+  return false;
+}
 ?>

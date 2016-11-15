@@ -1,5 +1,5 @@
 <?php
-include('header.php');
+include('includes/header.php');
 
 //$query = "SELECT a.*, b.* FROM Player a INNER JOIN PlayerStat b ON b.playerStatID = a.playerID INNER JOIN Position c ON c.positionID = b.positionID";
 $query = "SELECT * FROM Users";
@@ -28,7 +28,7 @@ $array = r2a($result);
 </table>
 
 <?php
-include('footer.php');
+include('includes/footer.php');
 
 ?>
 

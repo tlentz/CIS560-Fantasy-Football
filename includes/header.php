@@ -36,12 +36,18 @@ $mysqli = new mysqli("mysql.cis.ksu.edu", "markloev", "pcEkhG5B5kg8XExJ%RD", "ma
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
               <li class="dropdown">
+                <?php if(checkLogin()) { ?>
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php if(isset($_SESSION['user'])) { echo $_SESSION['user']['username']; } else { echo "Login";} ?><span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><a href="login.php">Login</a></li>
-                  <li><a href="createUser.php">Create User</a></li>
-                  <li><a href="#">Edit User</a></li>
+                  <li><a href="logout.php">Logout</a></li>
                 </ul>
+                <?php } else { ?>
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Login/Sign Up<span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="login.php">Login</a></li>
+                    <li><a href="signUp.php">Sign Up</a></li>
+                  </ul>
+                <?php } ?>
               </li>
             </ul>
           </div><!-- /.navbar-collapse -->

@@ -12,7 +12,7 @@ input[type="text"], input[type="password"]{
 }
 </style>
 <?php
-include('header.php');
+include('includes/header.php');
 
 if(isset($_POST['submit'])){
   $firstName = $_POST['firstName'];
@@ -21,9 +21,16 @@ if(isset($_POST['submit'])){
   $password = $_POST['password'];
 
   $query = "INSERT INTO Users (fName, lName, username, password) VALUES ('".$firstName."', '".$lastName."', '".$username."', '".$password."')";
-  $mysqli->query($query);
-
-  echo "Your user has been created. You may now log in.";
+  $result = $mysqli->query($query);
+  if ($mysqli->connect_errno) { ?>
+    <div class="alert alert-danger">
+      <strong>Error!</strong> There was a problem processing your request.
+    </div>
+  <?php } else { ?>
+    <div class="alert alert-success">
+      <strong>Success!</strong> You have successfully created an account.  <a href="login.php">Login</a>
+    </div>
+  <?php }
 }
 ?>
 
@@ -55,7 +62,7 @@ if(isset($_POST['submit'])){
 </form>
 
 <?php
-include('footer.php');
+include('includes/footer.php');
 ?>
 
 <script>
@@ -70,6 +77,7 @@ include('footer.php');
     else{
       $("#match").css("color", "red");
       $("#match").text("Passwords do not match");
+      $("#submit").attr("disabled","disabled");
     }
   });
 </script>

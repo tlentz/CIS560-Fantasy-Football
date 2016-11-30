@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('commonFunctions.php');
+include('common_functions.php');
 $mysqli = new mysqli("mysql.cis.ksu.edu", "markloev", "pcEkhG5B5kg8XExJ%RD", "markloev");
 ?>
 <html lang="en">

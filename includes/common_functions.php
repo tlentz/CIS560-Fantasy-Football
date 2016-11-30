@@ -75,10 +75,10 @@ function printPlayers($pos,$player,$week) {
       $query .= " AND (b.positionID = 2 OR b.positionID = 3 OR b.positionID = 4)";
       break;
     case "DF":
-      $query .= " AND b.positionID = 5";
+      $query .= " AND b.positionID = 6";
       break;
     case "PK":
-      $query .= " AND b.positionID = 6";
+      $query .= " AND b.positionID = 5";
       break;
     default:
       $query = "";
@@ -88,8 +88,6 @@ function printPlayers($pos,$player,$week) {
     $query .= " ORDER BY c.abbr ASC";
     global $mysqli;
     $players = r2a($mysqli->query($query));
-    //echo $query; die;
-    //pprint($players); die;
     foreach($players as $p) {
       if($player == $p['playerID']) {
         echo "<option value='".$p['playerID']."' selected='selected'>".$p['abbr']." - ".$p['name']."</option>";
@@ -126,5 +124,39 @@ function getWeekNum($week) {
 
 function pprint($arr) {
   echo "<pre>"; print_r($arr); echo "</pre>";
+}
+
+function hasTeam($userID,$weekID) {
+  global $mysqli;
+  $query = "SELECT * FROM FantasyTeam
+            WHERE userID = $userID AND weekID = $weekID";
+  $result = $mysqli->query($query);
+  if($result->num_rows > 0) {
+    return true;
+  }
+  return false;
+}
+
+function getTeam($userID,$weekID) {
+  global $mysqli;
+  $query = "SELECT * FROM FantasyTeam
+            WHERE userID = $userID AND weekID = $weekID";
+  $teams = r2a($mysqli->query($query));
+
+  $playerIds = $teams[0];
+  $pos = array("QB","RB1","RB2","WR1","WR2","TE","FLEX","DF","PK");
+  $team = array();
+  foreach($pos as $p) {
+  $query = "SELECT a.*,b.name,b.positionID,c.abbr
+            FROM PlayerStat a
+            JOIN Player b
+            ON a.playerID = b.playerID
+            JOIN Team c
+            ON b.teamID = c.teamID
+            WHERE a.playerID = $playerIds[$p]
+            AND weekID = $weekID";
+  $team[$p] = r2a($mysqli->query($query))[0];
+  }
+  return $team;
 }
 ?>

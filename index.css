@@ -26,3 +26,12 @@ a:hover{
 	color: white;
 	font-size: 20px;
 }
+
+.stats {
+	font-size: 12px !important;
+	margin: 0 !important;
+}
+
+.pos {
+	font-size: 30px;
+}

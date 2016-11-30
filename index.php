@@ -99,7 +99,47 @@ function printPlayer($pos,$player) {
     echo ($player['fgAtt']-$player['fgMiss'])."/".$player['fgAtt']." FG\t".($player['xpAtt']-$player['xpMiss'])."/".$player['xpAtt']." XP";
   }
   echo "</p>";
-  echo "</td><td></td>";
+  echo "</td><td class='pos'>";
+  calculatePoints($pos,$player);
+  echo "</td></tr>";
+}
+
+function calculatePoints($pos, $player) {
+  $points = 0;
+  if ($pos == "DF") {
+    $points = 10;
+    if($player['defTYA'] > 99) {
+      $points--;
+    }
+    if($player['defTYA'] > 199) {
+      $points--;
+    }
+    if($player['defTYA'] > 299) {
+      $points--;
+    }
+    if($player['defTYA'] > 399) {
+      $points--;
+    }
+    if($player['defTYA'] > 499) {
+      $points--;
+    }
+    $points = $points + (6*$player['defTds']) + (2*($player['defFR']+$player['defInt']+$player['defSafety']));
+  } else if ($pos == "PK") {
+    $points = (3*$player['fgAtt']) - (1*$player['fgMiss']) + (1*$player['xpAtt']) - (1*$player['xpMiss']);
+  } else {
+    $rushTds = $player['rushTds'] == "" ? 0 : $player['rushTds'];
+    $recTds = $player['recTds'] == "" ? 0 : $player['recTds'];
+    $passTds = $player['passTds'] == "" ? 0 : $player['passTds'];
+    $passYds = $player['passYds'] == "" ? 0 : $player['passYds'];
+    $recYds = $player['recYds'] == "" ? 0 : $player['recYds'];
+    $rushYds = $player['rushYds'] == "" ? 0 : $player['rushYds'];
+    $int = $player['interceptions'] == "" ? 0 : $player['interceptions'];
+    $fumbles = $player['fumbles'] == "" ? 0 : $player['fumbles'];
+    $points = (6*($rushTds+$recTds)) + (4*$passTds);
+    $points += (0.04*$passYds) + (0.1*($recYds + $rushYds));
+    $points -= (2*($int + $fumbles));
+  }
+  echo $points;
 }
 ?>
 

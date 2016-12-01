@@ -39,6 +39,7 @@ $mysqli = new mysqli("mysql.cis.ksu.edu", "markloev", "pcEkhG5B5kg8XExJ%RD", "ma
                 <?php if(checkLogin()) { ?>
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php if(isset($_SESSION['user'])) { echo $_SESSION['user']['username']; } else { echo "Login";} ?><span class="caret"></span></a>
                 <ul class="dropdown-menu">
+                  <li><a href="settings.php">Settings</a></li>
                   <li><a href="logout.php">Logout</a></li>
                 </ul>
                 <?php } else { ?>

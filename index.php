@@ -1,7 +1,4 @@
 <link rel="stylesheet" href="index.css">
-<?php
-include('includes/header.php');
-?>
 
 <!--<div class="row">
   <div class="tile col-md-3">
@@ -18,6 +15,17 @@ include('includes/header.php');
   </div>
 </div>-->
 <?php
+
+if(isset($_GET['delete'])){
+    $season = $_GET['season'];
+    $week = $_GET['week'];
+    $mysqli = new mysqli("mysql.cis.ksu.edu", "markloev", "pcEkhG5B5kg8XExJ%RD", "markloev");
+    $query = "DELETE FROM FantasyTeam WHERE weekID='".$week."'";
+    $mysqli->query($query);
+    header("index.php");
+}
+include('includes/header.php');
+
 $season = "";
 $week = "";
 if(isset($_GET['season'])) {
@@ -31,6 +39,15 @@ if($season != "" && $week != "") {
     $team = getTeam($_SESSION['user']['id'],$week);
   }
 }
+
+if(isset($_GET['delete'])){
+    $season = $_GET['season'];
+    $week = $_GET['week'];
+    $query = "DELETE FROM FantasyTeam WHERE weekID='".$week."'";
+    $mysqli->query($query);
+    header("index.php");
+}
+
 ?>
 <form method='GET'>
   <?php if($season == "" || $week == "") { ?>
@@ -49,7 +66,7 @@ if($season != "" && $week != "") {
     </div>
     <div class='col-sm-4'>
       <label>&nbsp;</label>
-      <a class='btn btn-primary form-control' href="createTeam.php?season=<?= $season ?>&week=<?= $week ?>">Create Team</a>
+      <a class='btn btn-primary form-control' href='createTeam.php?season=<?= $season ?>&week=<?= $week ?>'>Create Team</a>
     </div>
   </div>
 
@@ -61,7 +78,8 @@ if($season != "" && $week != "") {
       <div class="alert alert-warning">
         No team this week.
       </div>
-    <?php } else { pprint($team) ?>
+    <?php } else { //pprint($team) ?>
+      <input type='submit' style="width: 10%; float: right;" class='btn btn-primary form-control' id='delete' name='delete' value='Delete Team'>
       <table class='table table-striped'>
         <thead>
           <th>Position</th>

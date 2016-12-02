@@ -70,6 +70,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
     } else {
       $query = "INSERT INTO FantasyTeam (userID,weekID,QB,RB1,RB2,WR1,WR2,TE,FLEX,DF,PK) VALUES ($userID,$weekID,$QB,$RB1,$RB2,$WR1,$WR2,$TE,$FLEX,$DF,$PK)";
       $mysqli->query($query);
+      header("Location: index.php?season=$season&week=$week");
     }
   }
 } else {

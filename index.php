@@ -26,6 +26,7 @@ if(isset($_GET['delete'])){
 }
 include('includes/header.php');
 
+$totalPoints = 0;
 $season = "";
 $week = "";
 if(isset($_GET['season'])) {
@@ -79,8 +80,8 @@ if(isset($_GET['delete'])){
         No team this week.
       </div>
     <?php } else { //pprint($team) ?>
-      <input type='submit' style="width: 10%; float: right;" class='btn btn-primary form-control' id='delete' name='delete' value='Delete Team'>
-      <table class='table table-striped'>
+      <input type='submit' style="width: 10%; float: right;" class='btn btn-primary form-control' id='delete' name='delete' value='Delete Team'><br><br><br>
+      <table class='table table-striped table-bordered table-hover'>
         <thead>
           <th>Position</th>
           <th>Player</th>
@@ -90,7 +91,10 @@ if(isset($_GET['delete'])){
           <?php $pos = array("QB","RB1","RB2","WR1","WR2","TE","FLEX","DF","PK");
           foreach($pos as $p) {
             printPlayer($p, $team[$p]);
-          } ?>
+          }
+          global $totalPoints;
+          ?>
+          <tr><td colspan=3 class="pos" align="center">Total Points: <?= " ".$totalPoints ?></td></tr>
         </tbody>
       </table>
     <?php } ?>
@@ -157,6 +161,8 @@ function calculatePoints($pos, $player) {
     $points += (0.04*$passYds) + (0.1*($recYds + $rushYds));
     $points -= (2*($int + $fumbles));
   }
+  global $totalPoints;
+  $totalPoints += $points;
   echo $points;
 }
 ?>

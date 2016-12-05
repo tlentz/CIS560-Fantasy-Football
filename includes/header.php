@@ -1,5 +1,7 @@
 <?php
-session_start();
+if(session_id() == '') {
+  session_start();
+}
 include('common_functions.php');
 $mysqli = new mysqli("mysql.cis.ksu.edu", "markloev", "pcEkhG5B5kg8XExJ%RD", "markloev");
 $current_page = basename($_SERVER['SCRIPT_FILENAME']);
@@ -7,6 +9,7 @@ if(!checkLogin() && ($current_page != "login.php" && $current_page != "logout.ph
   header("Location: login.php");
 }
 ?>
+
 <html lang="en">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -58,3 +61,4 @@ if(!checkLogin() && ($current_page != "login.php" && $current_page != "logout.ph
           </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
       </nav>
+      <link rel="stylesheet" href="includes/main.css">

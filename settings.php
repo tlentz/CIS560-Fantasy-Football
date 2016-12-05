@@ -1,11 +1,18 @@
 <?php
-include('includes/header.php');
+session_start();
+$mysqli = new mysqli("mysql.cis.ksu.edu", "markloev", "pcEkhG5B5kg8XExJ%RD", "markloev");
+
+if(isset($_GET['username'])){
+  echo "<div class='alert alert-success'>
+    <strong>Success! </strong>You have successfully updated your username.
+  </div>";
+}
 
 if(isset($_POST['confirmNewUsername'])){
   $username = $_POST['newUsername'];
   $query = "SELECT username FROM Users";
   $result = $mysqli->query($query);
-  $array = r2a($result);
+  $array = r2aSettings($result);
   $taken = false;
   foreach($array as $a){
     if($username == $a['username']){
@@ -16,9 +23,7 @@ if(isset($_POST['confirmNewUsername'])){
     $query = "UPDATE Users SET username='".$username."' WHERE username='".$_SESSION['user']['username']."'";
     $mysqli->query($query);
     $_SESSION['user']['username'] = $username;
-    echo "<div class='alert alert-success'>
-      <strong>Success!</strong>You have successfully updated your username.
-    </div>";
+    header("settings.php?username=true");
   }
 }
 
@@ -27,9 +32,11 @@ if(isset($_POST['confirmNewPassword'])){
   $query = "UPDATE Users SET password='".$password."' WHERE username='".$_SESSION['user']['username']."'";
   $mysqli->query($query);
   echo "<div class='alert alert-success'>
-    <strong>Success!</strong>You have successfully updated your password.
+    <strong>Success! </strong>You have successfully updated your password.
   </div>";
 }
+
+include('includes/header.php');
 
 ?>
 
@@ -68,6 +75,14 @@ if(isset($_POST['confirmNewPassword'])){
 
 <?php
 include('includes/footer.php');
+
+function r2aSettings($r) {
+  $a = array();
+  while($row = mysqli_fetch_assoc($r)) {
+    $a[] = $row;
+  }
+  return $a;
+}
 ?>
 
 <script>

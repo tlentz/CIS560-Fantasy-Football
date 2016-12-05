@@ -25,7 +25,7 @@ if(!checkLogin() && ($current_page != "login.php" && $current_page != "logout.ph
     <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
   </head>
   <body>
-    <div class="container">
+    <!--<div class="container">-->
       <nav class="navbar navbar-default">
         <div class="container-fluid">
           <!-- Brand and toggle get grouped for better mobile display -->
@@ -62,3 +62,4 @@ if(!checkLogin() && ($current_page != "login.php" && $current_page != "logout.ph
         </div><!-- /.container-fluid -->
       </nav>
       <link rel="stylesheet" href="includes/main.css">
+      <div class="container">
